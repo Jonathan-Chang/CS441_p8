@@ -1,1 +1,1 @@
-# CS441_p8
+In this final project I will attempt to create a place where you can look at map and see where the best places to poop are. It will show user-placed destinations and then you can review a place to poop with stars in different categories. This will make pooping in public places a lot easier and safer. It's like Yelp but for toilets!
