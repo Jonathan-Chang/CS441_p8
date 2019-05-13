@@ -113,29 +113,34 @@ class ViewController: UIViewController {
         
     }
     
+    func menu (){
+        let showMenu = menu ()
+        if(menu == available()){
+            mapView.add(showMenu)
+            
+        }
+        else{
+            refresh()
+        }
+        
+        
+    }
+    
+    func refresh(){
+        mapView.userLocation()
+        
+    }
+    
+    func available(){
+        mapView.addOverlay(overlay)
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        all_locations.append(CLLocationCoordinate2DMake(42.0893553, -75.96970490000001))
-        all_locations_titles.append("Binghamton University")
-        all_locations_hello.append("Hello World")
-        //Mexico
-        all_locations.append(CLLocationCoordinate2DMake(23.624501, -102.55278399999997))
-        all_locations_titles.append("Mexico")
-        all_locations_hello.append("Hola Mundo")
-        //France
-        all_locations.append(CLLocationCoordinate2DMake(46.227638, 2.213749000000007))
-        all_locations_titles.append("France")
-        all_locations_hello.append("Bonjour le monde")
-        //Germany
-        all_locations.append(CLLocationCoordinate2DMake(51.165691,10.451526000000058))
-        all_locations_titles.append("Germany")
-        all_locations_hello.append("Hallo Welt")
-        //Kenya
-        all_locations.append(CLLocationCoordinate2DMake(-0.023559,37.90619300000003))
-        all_locations_titles.append("Kenya")
-        all_locations_hello.append("Salamu, Dunia")
-        //Russia
+        
         all_locations.append(CLLocationCoordinate2DMake(61.52401,105.31875600000001))
         all_locations_titles.append("Russia")
         all_locations_hello.append("Привет, мир")
