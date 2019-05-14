@@ -29,6 +29,15 @@ class ContainerController: UIViewController {
         return .lightContent
     }
     
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation{
+        return .slide
+        
+    }
+    
+    override var prefersStatusBarHidden: Bool{
+        return isExpanded
+    }
+    
     
     func configureHomeController(){
         let homeController = HomeController()
@@ -62,9 +71,7 @@ class ContainerController: UIViewController {
             
         }
         else{
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-                
-            }, completion: nil)
+
             
             
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
@@ -75,6 +82,7 @@ class ContainerController: UIViewController {
             }
             
         }
+        animateStatusBar()
     }
     
     //Do something when clicked
@@ -82,10 +90,20 @@ class ContainerController: UIViewController {
         switch menuOption{
             
         case .Map:
-            print("Show map")
+            let controller = MapController()
+            present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
         case .Review:
-            print("Show notifications")
+            let controller = ReviewController()
+            present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
         }
+    }
+    
+    
+    func animateStatusBar(){
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
+            , completion: nil)
     }
     
     
