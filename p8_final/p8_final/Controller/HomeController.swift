@@ -24,7 +24,7 @@ class HomeController: UIViewController, UISearchBarDelegate {
     }
     
     @objc func handleMenuToggle(){
-        delegate?.handleMenuToggle()
+        delegate?.handleMenuToggle(forMenuOption: nil)
         print("Toggle")
         
     }

@@ -13,7 +13,7 @@ import UIKit
 class ContainerController: UIViewController {
     
     
-    var menuController: UIViewController!
+    var menuController: MenuController!
     var centerController: UIViewController!
     var isExpanded = false
     
@@ -45,6 +45,7 @@ class ContainerController: UIViewController {
     func configureMenuController(){
         if menuController == nil {
             menuController = MenuController()
+            menuController.delegate = self
             view.insertSubview(menuController.view, at: 0)
             addChild(menuController)
             menuController.didMove(toParent:self)
@@ -52,33 +53,58 @@ class ContainerController: UIViewController {
         }
     }
     
-    func showMenuController(shouldExpand: Bool){
+    func animatePanel(shouldExpand: Bool, menuOption:MenuOption?){
         if shouldExpand{
-            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
                 self.centerController.view.frame.origin.x = self.centerController.view.frame.width - 80
             }
             , completion: nil)
             
         }
         else{
-            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-                self.centerController.view.frame.origin.x = 0
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                
             }, completion: nil)
+            
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                self.centerController.view.frame.origin.x = 0
+            }) { (_) in
+                guard let menuOption = menuOption else {return }
+                self.didSelectMenuOption(menuOption: menuOption)
+            }
+            
         }
     }
+    
+    //Do something when clicked
+    func didSelectMenuOption(menuOption: MenuOption){
+        switch menuOption{
+            
+        case .Map:
+            print("Show map")
+        case .Review:
+            print("Show notifications")
+        }
+    }
+    
+    
     
     
 }
 
 extension ContainerController: HomeControllerDelegate {
-    func handleMenuToggle() {
-        
+    func handleMenuToggle(forMenuOption menuOption: MenuOption?) {
         if !isExpanded {
             configureMenuController()
         }
         
         
         isExpanded = !isExpanded
-        showMenuController(shouldExpand: isExpanded)
-    }
-}
+        animatePanel(shouldExpand: isExpanded, menuOption: menuOption)
+    }    }
+    
+
+        
+        
+
